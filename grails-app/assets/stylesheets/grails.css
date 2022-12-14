@@ -82,6 +82,11 @@ a.navbar-brand {
     border-radius: 4px;
 }
 
+.navbar-dark .navbar-nav .nav-link {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
 .nav .dropdown a.dropdown-toggle {
     padding-top: 25px;
     padding-bottom: 25px;

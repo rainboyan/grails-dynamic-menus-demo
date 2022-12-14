@@ -25,7 +25,40 @@
 
         <div class="collapse navbar-collapse" aria-expanded="false" style="height: 0.8px;" id="navbarContent">
             <ul class="nav navbar-nav ml-auto">
-                <g:pageProperty name="page.nav"/>
+                <g:each var="menu" in="${applicationContext.getBean('webMenuManager').getMenus('topnav')}">
+                    <g:set var="items" value="${applicationContext.getBean('webMenuManager').getItems(menu.key)}" />
+                    <g:if test="${items}">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <g:if test="${menu.i18n}"><g:message code="${menu.i18n}" /></g:if><g:else>${menu.title}</g:else> <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <g:each var="item" in="${items}">
+                                <li class="dropdown-item"><a href="${item.link}">${item.title}</a></li>
+                                </g:each>
+                            </ul>
+                        </li>
+                    </g:if>
+                    <g:else>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${menu?.link}"><g:if test="${menu.i18n}"><g:message code="${menu.i18n}" /></g:if><g:else>${menu.title}</g:else></a>
+                        </li>
+                    </g:else>
+                </g:each>
+                <li class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><g:message code="menu.languages" default="Languages" /></a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <g:each var="lang" in="${applicationContext.getBean('pluginManager').getEnabledModuleDescriptorsByClass(org.grails.demo.LanguageModuleDescriptor)}">
+                            <g:set var="locale" value="${Locale.forLanguageTag(lang.key.replace('_', '-'))}"/>
+                            <g:set var="paramsWithLang" value="${params + [lang:lang.key]}"/>
+                            <li>
+                                <g:link class="dropdown-item" action="${actionName}" params="${paramsWithLang}">
+                                    ${locale.getDisplayName(locale)}
+                                </g:link>
+                            </li>
+                        </g:each>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
