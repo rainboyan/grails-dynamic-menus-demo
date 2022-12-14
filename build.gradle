@@ -26,6 +26,7 @@ apply plugin:"org.grails.grails-gsp"
 repositories {
     mavenLocal()
     maven { url "https://repo.grails.org/grails/core" }
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
 }
 
 configurations {
@@ -67,10 +68,8 @@ dependencies {
     runtimeOnly "org.apache.tomcat:tomcat-jdbc"
     runtimeOnly "javax.xml.bind:jaxb-api:2.3.1"
     runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails:4.0.0"
-    testImplementation "io.micronaut:micronaut-inject-groovy"
-    testImplementation "org.grails:grails-gorm-testing-support"
+    testImplementation "org.grails:grails-test-support"
     testImplementation "org.mockito:mockito-core"
-    testImplementation "org.grails:grails-web-testing-support"
     testImplementation "org.grails.plugins:geb"
     testImplementation "org.seleniumhq.selenium:selenium-remote-driver:4.0.0"
     testImplementation "org.seleniumhq.selenium:selenium-api:4.0.0"
