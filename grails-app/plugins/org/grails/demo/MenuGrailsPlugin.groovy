@@ -52,6 +52,18 @@ Grails Menu Plugin in the app.
         }
     }
 
+    void doWithDynamicMethods() {
+        // TODO Implement registering dynamic methods to classes (optional)
+        String.metaClass.getMenus = { ->
+            def webMenuManager = applicationContext.webMenuManager
+            webMenuManager.getMenus(delegate)
+        }
+        String.metaClass.getMenuItems = { ->
+            def webMenuManager = applicationContext.webMenuManager
+            webMenuManager.getItems(delegate)
+        }
+    }
+
     void doWithDynamicModules() {
         // TODO Implement registering dynamic modules to application (optional)
         // Supported Languages
